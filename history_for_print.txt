@@ -1,0 +1,111 @@
+    1  ls
+    2  sudo apt-get update
+    3  sudo apt-get install default-jdk
+    4  java -version
+    5  sudo apt-get install openssh-server
+    6  exit
+    7  sudo apt-get-repository ppa:webupd8team/java
+    8  sudo add-get-repository ppa:webupd8team/java
+    9  sudo add-apt-repository ppa:webupd8team/java
+   10  update -alternatives --config java
+   11  sudo gedit $HOME/.bashrc
+   12  exit
+   13  ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@ubuntu1
+   14  ssh ubuntu1
+   15  sudo gedit $HOME/.bashrc
+   16  exit
+   17  ssh-keygen
+   18  cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+   19  ssh localhost
+   20  sudo gedit $HOME/.bashrc
+   21  exit
+   22  sudo apt-get install rsync
+   23  ssh-keygen -t dsa -\p '' -f ~/.ssh/id_dsa
+   24  ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+   25  cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+   26  ssh localhost
+   27  exit
+   28  cd Downloads/
+   29  ls
+   30  tar -xvf hadoop-2.6.0.tar.gz 
+   31  ls
+   32  cp -r hadoop /usr/local/
+   33  sudo cp -r hadoop /usr/local/
+   34  cd ..
+   35  ls
+   36  sudo gedit $HOME/.bashrc
+   37  exec bash
+   38  $PATH
+   39  sudo gedit $HOME/.bashrc
+   40  exec bash
+   41  $PATH
+   42  exec bash
+   43  sudo gedit $HOME/.bashrc
+   44  exec bash
+   45  $PATH
+   46  sudo gedit $HOME/.bashrc
+   47  exec bash
+   48  $PATH
+   49  source /etc/environment 
+   50  echo $PATH
+   51  sudo gedit $HOME/.bashrc
+   52  exec bash
+   53  echo $PATH
+   54  cd /usr/local/hadoop/etc/hadoop
+   55  LS
+   56  ls
+   57  sudo gedit hadoop-env.sh 
+   58  clear
+   59  cd
+   60  sudo gedit /etc/sysctl.conf 
+   61  sudo gedit $HOME/.bashrc
+   62  exec bash
+   63  sudo gedit $HOME/.bashrc
+   64  exec bash
+   65  source ~/.bashrc
+   66  cd /usr/local/hadoop/etc/hadoop
+   67  sudo gedit core-site.xml 
+   68  ls
+   69  sudo gedit yarn-site.xml 
+   70  sudo cp mapred-site.xml.template mapred-site.xml
+   71  sudo gedit mapred-site.xml
+   72  clear
+   73  cd
+   74  sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/namenode
+   75  sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/datanode
+   76  sudo gedit /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+   77  sudo chowm hadoop@hadoop -R /usr/local/hadoop
+   78  sudo chown hadoop@hadoop -R /usr/local/hadoop
+   79  sudo chown hadoop@ubuntu1 -R /usr/local/hadoop
+   80  sudo chown ubuntu@hadoop -R /usr/local/hadoop
+   81  sudo chown ubuntu1@hadoop -R /usr/local/hadoop
+   82  sudo chown hadoop@hadoop -R /usr/local/hadoop
+   83  sudo chown ubuntu1 -R /usr/local/hadoop
+   84  sudo chown he@het -R /usr/local/hadoop
+   85  sudo chown hadoop@het -R /usr/local/hadoop
+   86  sudo chown hadoop@ubuntu -R /usr/local/hadoop
+   87  sudo chown hadoop@ubuntu1 -R /usr/local/hadoop
+   88  sudo chown hadoop@hadoop -R /usr/local/hadoop
+   89  sudo chown ubuntu1@hadoop -R /usr/local/hadoop
+   90  sudo chown hadoop -R /usr/local/hadoop
+   91* hdfs namenode -format# 
+   92  hdfs namenode -format
+   93  start-all.sh 
+   94  start.yarn.sh
+   95  start-yarn.sh 
+   96  jps
+   97  cd Desktop/
+   98  mkdir data
+   99  cd data
+  100  jps >> testfile.txt
+  101  cat testfile.txt
+  102  cd /usr/local/hadoop/
+  103  bin/hdfs dfs -mkdir /user
+  104  bin/hdfs dfs -mkdir /user/hadoop
+  105  clear
+  106  bin/hdfs dfs -put /home/hadoop/Desktop/data/combined.txt inputfile
+  107  bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar wordcount outfile
+  108  bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar wordcount inputfile  outfile
+  109  cd 
+  110  cd Desktop/
+  111  history > history_for_print.txt
