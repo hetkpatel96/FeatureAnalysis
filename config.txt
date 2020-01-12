@@ -1,0 +1,99 @@
+sudo apt-get install default-jdk
+java -version
+sudo apt-get install openssh-server
+
+ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+ssh localhost
+ssh-keygen
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+ssh localhost
+ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@ubuntu1
+ssh ubuntu1
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+
+cd Downloads
+tar -xvf hadoop-2.6.0.tar.gz
+sudo cp -r hadoop /usr/local/
+sudo gedit $HOME/.bashrc
+	export HADOOP_PREFIX=/usr/local/hadoop
+	export PATH=$PATH:$HADOOP_PREFIX/bin
+	export PATH=$PATH:$HADOOP_PREFIX/sbin
+	export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386
+exec bash
+$PATH
+
+cd /usr/local/hadoop/etc/hadoop
+sudo gedit hadoop-env.sh
+	export JAVA_HOMES=/usr/lib/jvm/java-7-openjdk-i386
+	export HADOOP_OPTS=-Djava.net.preferIPv4Stack=true
+sudo gedit /etc/sysctl.conf
+	net.ipv6.conf.all.disable_ipv6 = 1
+	net.ipv6.conf.default.disable_ipv6 = 1
+	net.ipv6.conf.io.disable_ipv6 = 1
+sudo gedit $HOME/.bashrc
+	export HADOOP_HOME=/usr/local/hadoop
+	export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop
+	export HADOOP_MAPRED_HOME=/usr/local/hadoop
+	export HADOOP_HDFS_HOME=/usr/local/hadoop
+	export YARN_HOME=/usr/local/hadoop
+
+exec bash
+source ~/.bashrc
+cd /usr/local/hadoop/etc/hadoop
+sudo gedit core-site.xml 
+	<property>
+		<name>fs.defaultFS</name>
+		<value>hdfs://localhost:9000</value>
+	</property>
+sudo gedit yarn-site.xml 
+	<property>
+		<name>yarn.nodemanager.aux-services</name>
+		<value>mapreduce_shuffle</value>
+	</property>
+	<property>
+		<name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+		<value>org.apache.hadoop.mapred.ShuffleHandler</value>
+	</property>
+
+sudo cp mapred-site.xml.template mapred-site.xml
+sudo gedit mapred-site.xml	
+	<property>
+		<name>mapreduce.framework.name</name>
+		<value>yarn</value>
+	</property>
+
+sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/namenode
+sudo mkdir -p /usr/local/hadoop/hadoop_data/hdfs/datanode
+sudo gedit /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+	<property>
+		<name>dfs.replication</name>
+		<value>2</value>
+	</property>
+	<property>
+		<name>dfs.namenode.name.dir</name>
+		<value>file:usr/local/hadoop/hadoop_data/hdfs/namenode</value>
+	</property>
+	<property>
+		<name>dfs.datanode.data.dir</name>
+		<value>file:usr/local/hadoop/hadoop_data/hdfs/datanode</value>
+	</property>
+sudo chown hadoop -R /usr/local/hadoop
+hdfs namenode -format
+start-all.sh
+start-yarn.sh
+jps
+
+mkdir data
+jps >> combined.txt
+cat combined.txt
+
+
+cd /usr/local/hadoop/
+bin/hdfs dfs -mkdir /user
+bin/hdfs dfs -mkdir /user/hadoop
+bin/hdfs dfs -put /home/hadoop/Desktop/data/combined.txt inputfile
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar wordcount outfile
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar wordcount inputfile  outfile
+
